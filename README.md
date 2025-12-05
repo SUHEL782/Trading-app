@@ -38,10 +38,8 @@ Auto Scaling Group Name
 Launch Template ID
 
 2. Testing Steps
-
-Run:
-
-./test.sh
+------------------------------------------------------------------------
+Run: ./test.sh
 
 
 This script fetches the ALB DNS and tests both endpoints:
@@ -56,10 +54,8 @@ curl http://<ALB-DNS>/
 curl http://<ALB-DNS>/health
 
 3. Teardown Steps (Avoid AWS Charges)
-
-Run:
-
-./destroy.sh
+--------------------------------------------------------------
+Run:  ./destroy.sh
 
 
 This script triggers:
@@ -70,3 +66,4 @@ terraform destroy -auto-approve
 All AWS resources—VPC, NAT Gateway, ALB, ASG, and EC2 instances—are removed safely.
 
 Thank you for giving me this opportunity!
+---------------------------------------
