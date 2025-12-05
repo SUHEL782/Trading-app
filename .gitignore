@@ -3,4 +3,4 @@
 *.tfstate.backup
 .terraform.lock.hcl
 awscliv2.zip
-node_modules/
+node_modules/    # more setup...........
