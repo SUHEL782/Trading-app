@@ -1,22 +1,26 @@
 provider "aws" {
-  region = "us-east-1"
+  region = "ap-south-1"
 }
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "3.21.0"
+  version = "6.0.0"
 
-  name = "devops-assignment"
+  name = "trading-application"
   cidr = "10.0.0.0/16"
 
-  azs             = ["us-east-1a", "us-east-1b"]
+  azs             = ["ap-south-1a", "ap-south-1b"]
   public_subnets  = ["10.0.1.0/24", "10.0.2.0/24"]
   private_subnets = ["10.0.3.0/24", "10.0.4.0/24"]
 
   enable_nat_gateway = true
   single_nat_gateway = true
 }
-//// security group for EC2 instance
+
+
+# Security Groups
+# -------------------------------------------------------
+
 resource "aws_security_group" "alb_sg" {
   name        = "alb-sg"
   vpc_id      = module.vpc.vpc_id
@@ -63,7 +67,10 @@ resource "aws_security_group" "ec2_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
-/// iam role
+
+# IAM Role & Instance Profile
+# -------------------------------------------------------
+
 resource "aws_iam_role" "ec2_role" {
   name = "ec2-role"
 
@@ -86,24 +93,36 @@ resource "aws_iam_instance_profile" "ec2_instance_profile" {
   name = "ec2-instance-profile"
   role = aws_iam_role.ec2_role.name
 }
-/// launch template
+
+
+# Launch Template
+# -------------------------------------------------------
+
 resource "aws_launch_template" "app_lt" {
   name          = "app-lt"
-  image_id      = data.aws_ami.amazon_linux.id
+  image_id      = "ami-02b8269d5e85954ef" # Ubuntu
   instance_type = "t3.micro"
+
   iam_instance_profile {
     name = aws_iam_instance_profile.ec2_instance_profile.name
   }
-  security_group_names = [aws_security_group.ec2_sg.name]
+
+  vpc_security_group_ids = [aws_security_group.ec2_sg.id]
 
   user_data = filebase64("${path.module}/userdata.sh")
 }
-//// autoscaling group
+
+
+# Auto Scaling Group
+# -------------------------------------------------------
+
 resource "aws_autoscaling_group" "app_asg" {
   desired_capacity     = 2
   max_size             = 3
   min_size             = 1
-  vpc_zone_identifier  = module.vpc.private_subnets
+
+  vpc_zone_identifier = module.vpc.private_subnets
+
   launch_template {
     id      = aws_launch_template.app_lt.id
     version = "$Latest"
@@ -112,7 +131,11 @@ resource "aws_autoscaling_group" "app_asg" {
   target_group_arns = [aws_lb_target_group.app_tg.arn]
   health_check_type = "EC2"
 }
-/// application load balancer and target group
+
+
+# ALB and Target Group + Listener
+# -------------------------------------------------------
+
 resource "aws_lb" "app_alb" {
   name               = "app-alb"
   internal           = false
@@ -146,3 +169,4 @@ resource "aws_lb_listener" "http" {
     target_group_arn = aws_lb_target_group.app_tg.arn
   }
 }
+

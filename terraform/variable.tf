@@ -1,15 +1,16 @@
-# ---------------------------
 # Provider and Region
-# ---------------------------
+# -------------------------------
+
 variable "region" {
   description = "AWS region to deploy resources"
   type        = string
   default     = "ap-south-1"
 }
 
-# ---------------------------
-# VPC & Subnets
-# ---------------------------
+
+# VPC and Subnets
+# -------------------------------
+
 variable "vpc_cidr" {
   description = "CIDR block for VPC"
   type        = string
@@ -34,18 +35,20 @@ variable "azs" {
   default     = ["ap-south-1a", "ap-south-1b"]
 }
 
-# ---------------------------
-# EC2 / Launch Template
-# ---------------------------
+
+# EC2 Launch Template
+# -------------------------------
+
 variable "instance_type" {
   description = "EC2 instance type"
   type        = string
   default     = "t3.micro"
 }
 
-# ---------------------------
+
 # Auto Scaling Configuration
-# ---------------------------
+# -------------------------------
+
 variable "desired_capacity" {
   description = "ASG desired capacity"
   type        = number
@@ -63,3 +66,4 @@ variable "max_capacity" {
   type        = number
   default     = 3
 }
+
