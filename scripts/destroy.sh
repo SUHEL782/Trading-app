@@ -1,4 +1,4 @@
 #!/bin/bash
 cd "$(dirname "$0")"/.. 
 cd terraform
-terraform destroy 
+terraform destroy || AS par current..
