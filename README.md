@@ -1,5 +1,4 @@
 One-Click Deployment: Private EC2 + ALB + ASG (Terraform)
- 
 ------------------------------------------------------------------------------------------------------
 GitHub Profile: https://github.com/SUHEL782
 This project provisions a complete AWS infrastructure using one click (terraform apply).
