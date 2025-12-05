@@ -1,9 +1,18 @@
 #!/bin/bash
-yum update -y
-curl -sL https://rpm.nodesource.com/setup_18.x | bash -
-yum install -y nodejs git
-cd /home/ec2-user
-git clone https://github.com/YOUR_REPO_NAME.git app
-cd app/app
+apt update -y
+apt install -y curl git
+
+curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+apt install -y nodejs
+
+
+cd /home/ubuntu
+git clone https://github.com/SUHEL782/Trading-app.git
+
+
+cd Trading-app/app
+
 npm install
+
+# Start app...............
 nohup node server.js > /var/log/app.log 2>&1 &
