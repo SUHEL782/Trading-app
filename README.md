@@ -1,10 +1,12 @@
 One-Click Deployment: Private EC2 + ALB + ASG (Terraform)
+-------------------------------------------------------------------
 
 This project deploys a complete AWS infrastructure using one click (terraform apply).
 A simple REST API runs on private EC2 instances behind an Application Load Balancer (ALB) and an Auto Scaling Group (ASG).
 All resources are provisioned through Infrastructure as Code (Terraform).
 
 1. Deployment Steps (One-Click Deploy)
+-----------------------------------------------------------
 A. Install Requirements
 sudo apt update -y
 sudo apt install -y unzip awscli
