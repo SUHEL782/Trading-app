@@ -1,4 +1,4 @@
 #!/bin/bash
-cd terraform
+cd "$(dirname "$0")"/..
 terraform init
 terraform apply -auto-approve
