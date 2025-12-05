@@ -1,6 +1,6 @@
 One-Click Deployment: Private EC2 + ALB + ASG (Terraform)
 ------------------------------------------------------------------------------------------------------
-GitHub Profile: https://github.com/SUHEL782
+
 This project provisions a complete AWS infrastructure using one click (terraform apply).
 A simple REST API runs on private EC2 instances, fronted by an Application Load Balancer (ALB) and an Auto Scaling Group (ASG).
 All components are built using Terraform (IaC).
@@ -69,5 +69,5 @@ terraform destroy -auto-approve
 
 This deletes the entire stack including the VPC, NAT Gateway, ALB, ASG, and EC2 instances.
 
-Thank you for giving me this opportunity!
+Thank you for giving me this opportunity! GitHub Profile: https://github.com/SUHEL782
 ----------------------------------------------------------------------------------
